@@ -8,7 +8,7 @@ import java.util.List;
  * Created by Andrii_Rodionov on 1/3/2017.
  */
 public class JsonObject extends Json {
-    List<List> jsonPack = new ArrayList<List>();
+    public List<List> jsonPack = new ArrayList<List>();
 
     public JsonObject(JsonPair... jsonPairs) {
         for(int i=0; i < jsonPairs.length; i++){
@@ -21,7 +21,7 @@ public class JsonObject extends Json {
     public String toJson() {
         String res = "{";
         for(int i = 0; i < jsonPack.size(); i++){
-            res = res +  "'" + jsonPack.get(i).get(0) + "'" + ": " + jsonPack.get(i).get(1);
+            res = res +  jsonPack.get(i).get(0) + ": " + jsonPack.get(i).get(1);
             if (i < jsonPack.size() - 1){
                 res += ", ";
             }
@@ -31,16 +31,29 @@ public class JsonObject extends Json {
     }
 
     public void add(JsonPair jsonPair) {
-        // ToDo
+        List<String> pair = Arrays.asList(jsonPair.key, jsonPair.value.toJson());
+        jsonPack.add(pair);
     }
 
     public Json find(String name) {
-        // ToDo
+        for(int i = 0; i < jsonPack.size(); i++){
+            if (jsonPack.get(i).get(0) == name){
+                Json js = new JsonString(jsonPack.get(i).get(1).toString());
+                return js;
+            }
+        }
         return null;
     }
 
     public JsonObject projection(String... names) {
-        // ToDo
-        return null;
+        JsonObject jsonObject = new JsonObject();
+        for (int lst = 0; lst < jsonPack.size(); lst++){
+            for (int i = 0; i < names.length; i++){
+                if(jsonPack.get(lst).get(0).toString() == names[i]){
+                    jsonObject.add(new JsonPair(jsonPack.get(lst).get(0).toString(), new JsonString(jsonPack.get(lst).get(1).toString())));
+                }
+            }
+        }
+        return jsonObject;
     }
 }

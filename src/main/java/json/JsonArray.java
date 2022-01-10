@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class JsonArray extends Json {
 
-    private final List<Json> jsons;
+    public final List<Json> jsons;
 
     public JsonArray(Json... jsons) {
         this.jsons = Arrays.asList(jsons);

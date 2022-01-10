@@ -14,7 +14,7 @@ import static org.junit.Assert.*;
 public class StudentTest {
     @Test
     public void testToJsonWithEmptyExams() throws Exception {
-
+//
 //        Student student = new Student(
 //                "Andrii",
 //                "Rodionov",

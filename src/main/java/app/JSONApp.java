@@ -7,10 +7,6 @@ import json.*;
  * Created by Andrii_Rodionov on 1/3/2017.
  */
 public class JSONApp {
-    public JsonPair name;
-    public JsonPair surname;
-    public int years;
-    public JsonArray exams;
     public static void main(String[] args) {
         Json jYear = new JsonNumber(2);
         print(jYear); // 2
@@ -37,10 +33,31 @@ public class JSONApp {
     }
 
     public static JsonObject sessionResult() {
-        JsonObject jsonObject = new JsonObject();
+
         JsonPair name = new JsonPair("name", new JsonString("Andrii"));
         JsonPair surname = new JsonPair("surname", new JsonString("Rodionov"));
-        // ToDo
+        JsonPair year = new JsonPair("year", new JsonNumber(2));
+
+        JsonPair course1 = new JsonPair("course", new JsonString("OOP"));
+        JsonPair mark1 = new JsonPair("mark", new JsonNumber(3));
+        JsonPair pass1 =  new JsonPair("passed", new JsonBoolean(true));
+        Json str1 = new JsonString(new JsonObject(course1, mark1, pass1).toJson());
+
+        JsonPair course2 = new JsonPair("course", new JsonString("English"));
+        JsonPair mark2 = new JsonPair("mark", new JsonNumber(5));
+        JsonPair pass2 =  new JsonPair("passed", new JsonBoolean(true));
+        Json str2 = new JsonString(new JsonObject(course2, mark2, pass2).toJson());
+
+        JsonPair course3 = new JsonPair("course", new JsonString("Math"));
+        JsonPair mark3 = new JsonPair("mark", new JsonNumber(2));
+        JsonPair pass3 =  new JsonPair("passed", new JsonBoolean(false));
+        Json str3 = new JsonString(new JsonObject(course3, mark3, pass3).toJson());
+
+        String sub = new JsonArray(str1, str2, str3).toJson();
+        Json sub_str = new JsonString(sub);
+
+        JsonPair lst = new JsonPair("exams", sub_str);
+        JsonObject jsonObject = new JsonObject(name, surname, year, lst);
         return jsonObject;
     }
 }
