@@ -29,14 +29,15 @@ public class Student extends BasicStudent {
         jsonObject.add(new JsonPair("year", new JsonNumber(this.year)));
         JsonArray sub = new JsonArray();
 
+
         for (int i = 0; i < exams.size(); i++){
             JsonPair course = new JsonPair("course", new JsonString(exams.get(i).key));
             JsonPair mark = new JsonPair("mark", new JsonNumber(exams.get(i).value));
-            JsonPair pass = new JsonPair("passed", new JsonBoolean(false));
+            JsonPair p = new JsonPair("passed", new JsonBoolean(false));
             if (exams.get(i).value >= 3){
-                pass = new JsonPair("passed", new JsonBoolean(true));}
+                p = new JsonPair("passed", new JsonBoolean(true));}
 
-            Json str = new JsonString(new JsonObject(course, mark, pass).toJson());
+            Json str = new JsonString(new JsonObject(course, mark, p).toJson());
             sub.jsons.add(str);
         }
 
